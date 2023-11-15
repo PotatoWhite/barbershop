@@ -64,6 +64,7 @@ func (shop *BarberShop) CloseShopForDay() {
 	close(shop.ClientChan)
 	shop.Open = false
 
+	// wait for all barbers to finish
 	for a := 1; a <= shop.NumberOfBarbers; a++ {
 		<-shop.BarberDoneChan
 	}
