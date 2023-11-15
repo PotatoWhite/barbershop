@@ -86,5 +86,4 @@ func (shop *BarberShop) AddClient(client string) {
 	} else {
 		color.Red("Shop is already closed. %s leaves.", client)
 	}
-
 }

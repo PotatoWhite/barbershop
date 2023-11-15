@@ -10,8 +10,7 @@ import (
 
 // variables
 var (
-	seatingCapacity = 10
-	arrivalRate     = 100
+	seatingCapacity = 5
 	cutDuration     = 1000 * time.Millisecond
 	timeOpen        = 10 * time.Second
 )
@@ -37,18 +36,15 @@ func main() {
 	color.Green("Barber shop is open for business!")
 
 	// add barbers
-	shop.AddBarber("Frank")
-	shop.AddBarber("Gerald")
-	shop.AddBarber("Hank")
-	shop.AddBarber("Ivan")
-	shop.AddBarber("Karl")
+	shop.AddBarber("Potato")
 
 	// start the barber shop as a goroutine
 	shopClosing := make(chan bool)
 	closed := make(chan bool)
 
+	// close the shop after 10 seconds
 	go func() {
-		<-time.After(timeOpen) // at 10 seconds, close the shop
+		<-time.After(timeOpen) // at 10 seconds, execute the following code
 		shopClosing <- true
 		shop.CloseShopForDay()
 		closed <- true
@@ -58,7 +54,7 @@ func main() {
 	i := 1
 	go func() {
 		for {
-			randomMillisecond := rand.Int() % (2 * arrivalRate) // random number between 0 and 2 * arrivalRate
+			randomMillisecond := rand.Intn(100)
 			select {
 			case <-shopClosing:
 				return
